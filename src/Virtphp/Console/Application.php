@@ -21,6 +21,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Virtphp\Command;
 use Virtphp\Factory;
+use Virtphp\System\Shell\Bash;
+use Virtphp\System\ShellInterface;
 use Virtphp\Util\ErrorHandler;
 use Virtphp\Virtphp;
 
@@ -38,6 +40,8 @@ class Application extends BaseApplication
 | |/ / / /  / /_/ ____/ __  / ____/
 |___/_/_/   \__/_/   /_/ /_/_/
 ';
+
+    protected $shell;
 
     public static $testPhpVersion = false;
 
@@ -142,6 +146,16 @@ class Application extends BaseApplication
     public function getLongVersion()
     {
         return parent::getLongVersion() . ' ' . Virtphp::RELEASE_DATE;
+    }
+
+    /**
+     * @return ShellInterface
+     */
+    public function getShell(){
+        if(!$this->shell){
+            $this->shell = new Bash();
+        }
+        return $this->shell;
     }
 
     /**

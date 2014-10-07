@@ -23,6 +23,11 @@ abstract class AbstractWorker
     protected $filesystem = null;
 
     /**
+     * @var \Virtphp\Console\Application
+     */
+    protected $application = null;
+
+    /**
      * Executes the worker, performing the primary job of the worker
      *
      * @return boolean Whether the action was successful
@@ -53,5 +58,21 @@ abstract class AbstractWorker
     public function getProcess($command)
     {
         return new Process($command);
+    }
+
+    /**
+     * @return \Virtphp\Console\Application
+     */
+    public function getApplication()
+    {
+        return $this->application;
+    }
+
+    /**
+     * @param \Virtphp\Console\Application $application
+     */
+    public function setApplication($application)
+    {
+        $this->application = $application;
     }
 }

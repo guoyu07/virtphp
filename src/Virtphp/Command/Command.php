@@ -65,8 +65,10 @@ class Command extends ConsoleCommand
         }
 
         $reflectionObj = new \ReflectionClass($worker);
+        $instance = $reflectionObj->newInstanceArgs($args);
+        $instance->setApplication($this->getApplication());
 
-        return $reflectionObj->newInstanceArgs($args);
+        return $instance;
     }
 
     /**
