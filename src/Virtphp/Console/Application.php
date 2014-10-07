@@ -21,6 +21,8 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Virtphp\Command;
 use Virtphp\Factory;
+use Virtphp\System\Environment\Unix;
+use Virtphp\System\EnvironmentInterface;
 use Virtphp\System\Shell\Bash;
 use Virtphp\System\ShellInterface;
 use Virtphp\Util\ErrorHandler;
@@ -42,6 +44,7 @@ class Application extends BaseApplication
 ';
 
     protected $shell;
+    protected $environment;
 
     public static $testPhpVersion = false;
 
@@ -131,7 +134,7 @@ class Application extends BaseApplication
      */
     protected function getDefaultCommands()
     {
-        $commands   = parent::getDefaultCommands();
+        $commands = parent::getDefaultCommands();
         $commands[] = new Command\CreateCommand();
         $commands[] = new Command\CloneCommand();
         $commands[] = new Command\DestroyCommand();
@@ -151,11 +154,23 @@ class Application extends BaseApplication
     /**
      * @return ShellInterface
      */
-    public function getShell(){
-        if(!$this->shell){
+    public function getShell()
+    {
+        if (!$this->shell) {
             $this->shell = new Bash();
         }
         return $this->shell;
+    }
+
+    /**
+     * @return EnvironmentInterface
+     */
+    public function getEnvironment()
+    {
+        if (!$this->environment) {
+            $this->environment = new Unix();
+        }
+        return $this->environment;
     }
 
     /**
