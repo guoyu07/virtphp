@@ -17,6 +17,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Virtphp\Console\Application;
 use Virtphp\Util\Filesystem;
 
 class EnvironmentFile
@@ -27,11 +28,15 @@ class EnvironmentFile
 
     public $output;
 
-    public function __construct(OutputInterface $output)
+    protected $application;
+
+    public function __construct(OutputInterface $output, Application $application)
     {
+        $this->application = $application;
         // set the path to the environments folder
-        $this->envFile = getenv('HOME') . DIRECTORY_SEPARATOR . '.virtphp' . DIRECTORY_SEPARATOR .  'environments.json';
-        $this->envPath = getenv('HOME') . DIRECTORY_SEPARATOR . '.virtphp';
+        $home = $this->application->getEnvironment()->home();
+        $this->envFile = $home . DIRECTORY_SEPARATOR . '.virtphp' . DIRECTORY_SEPARATOR .  'environments.json';
+        $this->envPath = $home . DIRECTORY_SEPARATOR . '.virtphp';
         $this->envFolder = $this->envPath . DIRECTORY_SEPARATOR . 'envs';
         $this->output = $output;
 

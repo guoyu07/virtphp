@@ -55,7 +55,7 @@ class Shower extends AbstractWorker
      */
     public function __construct(OutputInterface $output)
     {
-        $this->envPath = getenv('HOME') . DIRECTORY_SEPARATOR . '.virtphp';
+        $this->envPath = $this->getApplication()->getEnvironment()->home() . DIRECTORY_SEPARATOR . '.virtphp';
         $this->filePath = $this->envPath . DIRECTORY_SEPARATOR. $this->file;
         $this->output = $output;
         $this->tableHelper = new TableHelper();

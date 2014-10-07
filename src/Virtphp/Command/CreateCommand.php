@@ -76,7 +76,7 @@ class CreateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $envName = $input->getArgument('env-name');
-        $envPath = getenv('HOME') . DIRECTORY_SEPARATOR .  '.virtphp';
+        $envPath = $this->getApplication()->getEnvironment()->home() . DIRECTORY_SEPARATOR .  '.virtphp';
         $envFolder = $envPath . DIRECTORY_SEPARATOR . 'envs';
 
         // Pass the output object to the parent

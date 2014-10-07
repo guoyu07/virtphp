@@ -558,11 +558,12 @@ EOD;
             0644
         );
 
+        $home = $this->getApplication()->getEnvironment()->home();
         // pearrc files can give you a ton of issues, so we're going to move
         // the current, if set in the ~/.pearrc, do our install and then
         // move it back.
-        $pearrc = getenv('HOME') . DIRECTORY_SEPARATOR . '.pearrc';
-        $pearrcMoved = getenv('HOME') . DIRECTORY_SEPARATOR . '.virtphp_pearrc';
+        $pearrc = $home . DIRECTORY_SEPARATOR . '.pearrc';
+        $pearrcMoved = $home . DIRECTORY_SEPARATOR . '.virtphp_pearrc';
         try {
             if ($this->getFilesystem()->exists($pearrc)) {
                 $this->getFilesystem()->rename($pearrc, $pearrcMoved);

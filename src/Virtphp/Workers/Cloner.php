@@ -56,7 +56,8 @@ class Cloner extends AbstractWorker
     public function __construct($originalPath, $envName, OutputInterface $output)
     {
         $this->originalPath = realpath($originalPath);
-        $this->envName = getenv('HOME') . DIRECTORY_SEPARATOR . '.virtphp' . DIRECTORY_SEPARATOR . 'envs' . DIRECTORY_SEPARATOR . $envName;
+        $home = $this->getApplication()->getEnvironment()->home();
+        $this->envName = $home . DIRECTORY_SEPARATOR . '.virtphp' . DIRECTORY_SEPARATOR . 'envs' . DIRECTORY_SEPARATOR . $envName;
         $this->output = $output;
     }
 
