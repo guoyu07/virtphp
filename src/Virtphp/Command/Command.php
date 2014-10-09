@@ -118,7 +118,7 @@ class Command extends ConsoleCommand
     public function getEnvFile()
     {
         if (empty($this->envFile)) {
-            $this->envFile = new EnvironmentFile($this->output);
+            $this->envFile = new EnvironmentFile($this->output, $this->getApplication());
         }
         return $this->envFile;
     }
